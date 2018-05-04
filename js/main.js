@@ -259,7 +259,7 @@ else {
 
             //Phong is for shiny surfaces
 			gal.floorMaterial = new THREE.MeshPhongMaterial( {map: gal.floorText } );
-			gal.floor = new THREE.Mesh(new THREE.PlaneGeometry(45,45), gal.floorMaterial);
+			gal.floor = new THREE.Mesh(new THREE.PlaneGeometry(90,90), gal.floorMaterial);
 
 			gal.floor.rotation.x = Math.PI/2;
             gal.floor.rotation.y = Math.PI;
@@ -269,20 +269,20 @@ else {
 			gal.wallGroup = new THREE.Group();
 			gal.scene.add(gal.wallGroup);
 
-			gal.wall1 = new THREE.Mesh(new THREE.BoxGeometry(40,6, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
-			gal.wall2 = new THREE.Mesh(new THREE.BoxGeometry(6,6, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
-			gal.wall3 = new THREE.Mesh(new THREE.BoxGeometry(6,6, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
-			gal.wall4 = new THREE.Mesh(new THREE.BoxGeometry(40,6, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
+			gal.wall1 = new THREE.Mesh(new THREE.BoxGeometry(80,12, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
+			gal.wall2 = new THREE.Mesh(new THREE.BoxGeometry(12,12, 0.001), new THREE.MeshLambertMaterial({color: 0x00ffff}));
+			gal.wall3 = new THREE.Mesh(new THREE.BoxGeometry(12,12, 0.001), new THREE.MeshLambertMaterial({color: 0x00ffff}));
+			gal.wall4 = new THREE.Mesh(new THREE.BoxGeometry(80,12, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
 
 			gal.wallGroup.add(gal.wall1, gal.wall2, gal.wall3, gal.wall4);
-			gal.wallGroup.position.y = 3;
+			gal.wallGroup.position.y = 6;
 
-			gal.wall1.position.z = -3;
-			gal.wall2.position.x = -20;
+			gal.wall1.position.z = -6;
+			gal.wall2.position.x = -40;
 			gal.wall2.rotation.y = Math.PI/2;
-			gal.wall3.position.x = 20;
+			gal.wall3.position.x = 40;
 			gal.wall3.rotation.y = -Math.PI/2;
-			gal.wall4.position.z = 3;
+			gal.wall4.position.z = 6;
 			gal.wall4.rotation.y = Math.PI;
 
             for(var i = 0; i < gal.wallGroup.children.length; i++) {
@@ -293,8 +293,8 @@ else {
 			//Ceiling//
 			//gal.ceilMaterial = new THREE.MeshLambertMaterial({color: 0x8DB8A7});
 			gal.ceilMaterial = new THREE.MeshLambertMaterial({color: 0xeeeeee});
-			gal.ceil = new THREE.Mesh(new THREE.PlaneGeometry(40,6), gal.ceilMaterial);
-			gal.ceil.position.y = 6;
+			gal.ceil = new THREE.Mesh(new THREE.PlaneGeometry(80,12), gal.ceilMaterial);
+			gal.ceil.position.y = 12;
 			gal.ceil.rotation.x = Math.PI/2;
 
 			gal.scene.add(gal.ceil);
@@ -354,12 +354,12 @@ else {
 						if(index <= Math.floor(gal.num_of_paintings/2)-1) //bottom half
 						{
 							//plane.rotation.z = Math.PI/2;
-                            plane.position.set(2.5 * index - 17.5,2,-2.96); //y and z kept constant
+                            plane.position.set(2.5 * index - 17.5,2,-5.98); //y and z kept constant
 						}
 						else
 						{
 							//plane.rotation.z = Math.PI/2;
-                            plane.position.set(2.5 * index - 55 ,2 ,2.96);
+                            plane.position.set(2.5 * index - 55 ,2 ,5.98);
                             //plane.position.set(65*i - 75*Math.floor(gal.num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
 							plane.rotation.y = Math.PI;
 						}https://aerotwist.com/tutorials/create-your-own-environment-maps/
@@ -412,17 +412,17 @@ else {
 						gal.moveVelocity.y = 0;
 						gal.controls.getObject().position.y = 1.75;
 				}
-                if(gal.controls.getObject().position.z < -2) {
-                        gal.controls.getObject().position.z = -2;
+                if(gal.controls.getObject().position.z < -5) {
+                        gal.controls.getObject().position.z = -5;
                 }
-                if(gal.controls.getObject().position.z > 2) {
-                        gal.controls.getObject().position.z = 2;
+                if(gal.controls.getObject().position.z > 5) {
+                        gal.controls.getObject().position.z = 5;
                 }
-                if(gal.controls.getObject().position.x < -18) {
-                        gal.controls.getObject().position.x = -18;
+                if(gal.controls.getObject().position.x < -36) {
+                        gal.controls.getObject().position.x = -36;
                 }
-                if(gal.controls.getObject().position.x > 18) {
-                        gal.controls.getObject().position.x = 18;
+                if(gal.controls.getObject().position.x > 36) {
+                        gal.controls.getObject().position.x = 36;
                 }
 
                 //rayCaster/////
@@ -430,7 +430,7 @@ else {
                 //calculate objects interesting ray
                 gal.intersects = gal.raycaster.intersectObjects(gal.paintings);
                 if(gal.intersects.length !== 0) {
-                    gal.intersects[0].object.material.color.set(0xaaeeee);
+                    gal.intersects[0].object.material.color.set(0xffffff);
                     //console.log(intersects[0].distance);
                     console.log(gal.intersects[0].point);
                 }
