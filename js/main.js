@@ -269,20 +269,20 @@ else {
 			gal.wallGroup = new THREE.Group();
 			gal.scene.add(gal.wallGroup);
 
-			gal.wall1 = new THREE.Mesh(new THREE.BoxGeometry(80,12, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
-			gal.wall2 = new THREE.Mesh(new THREE.BoxGeometry(12,12, 0.001), new THREE.MeshLambertMaterial({color: 0x00ffff}));
-			gal.wall3 = new THREE.Mesh(new THREE.BoxGeometry(12,12, 0.001), new THREE.MeshLambertMaterial({color: 0x00ffff}));
-			gal.wall4 = new THREE.Mesh(new THREE.BoxGeometry(80,12, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
+			gal.wall1 = new THREE.Mesh(new THREE.BoxGeometry(80,24, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
+			gal.wall2 = new THREE.Mesh(new THREE.BoxGeometry(24,24, 0.001), new THREE.MeshLambertMaterial({color: 0x00ffff}));
+			gal.wall3 = new THREE.Mesh(new THREE.BoxGeometry(24,24, 0.001), new THREE.MeshLambertMaterial({color: 0x00ffff}));
+			gal.wall4 = new THREE.Mesh(new THREE.BoxGeometry(80,24, 0.001), new THREE.MeshLambertMaterial({color: 0xffffff}));
 
 			gal.wallGroup.add(gal.wall1, gal.wall2, gal.wall3, gal.wall4);
 			gal.wallGroup.position.y = 6;
 
-			gal.wall1.position.z = -6;
+			gal.wall1.position.z = -12;
 			gal.wall2.position.x = -40;
 			gal.wall2.rotation.y = Math.PI/2;
 			gal.wall3.position.x = 40;
 			gal.wall3.rotation.y = -Math.PI/2;
-			gal.wall4.position.z = 6;
+			gal.wall4.position.z = 12;
 			gal.wall4.rotation.y = Math.PI;
 
             for(var i = 0; i < gal.wallGroup.children.length; i++) {
@@ -293,8 +293,8 @@ else {
 			//Ceiling//
 			//gal.ceilMaterial = new THREE.MeshLambertMaterial({color: 0x8DB8A7});
 			gal.ceilMaterial = new THREE.MeshLambertMaterial({color: 0xeeeeee});
-			gal.ceil = new THREE.Mesh(new THREE.PlaneGeometry(80,12), gal.ceilMaterial);
-			gal.ceil.position.y = 12;
+			gal.ceil = new THREE.Mesh(new THREE.PlaneGeometry(80,24), gal.ceilMaterial);
+			gal.ceil.position.y = 9;
 			gal.ceil.rotation.x = Math.PI/2;
 
 			gal.scene.add(gal.ceil);
@@ -328,14 +328,19 @@ else {
 			///////Add Artworks~///////
 			gal.artGroup = new THREE.Group();
            
-			gal.num_of_paintings = 30;
+			gal.num_of_paintings = 28;
 			gal.paintings = [];
+			posisi  = -40
+			posite = -35.0
 			for(var i = 0; i < gal.num_of_paintings; i++){
 				(function(index) {
                     //https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
 					var artwork = new Image();
 					var ratiow = 0;
 					var ratioh = 0;
+					var ratioww = 4; 
+					var ratiowww = 3.2; 
+
 
 					var source = './img/Artworks/' + (index).toString() + '.jpg';
 					artwork.src = source;
@@ -351,17 +356,55 @@ else {
 						var plane = new THREE.Mesh(new THREE.PlaneGeometry(ratiow, ratioh),img); //width, height
 						plane.overdraw = true;
                         //-1 because index is 0 - n-1 but num of paintings is n 
-						if(index <= Math.floor(gal.num_of_paintings/2)-1) //bottom half
+						
+						if(index <= Math.floor(gal.num_of_paintings/2.1)-1) //bottom half
 						{
 							//plane.rotation.z = Math.PI/2;
-                            plane.position.set(2.5 * index - 17.5,2,-5.98); //y and z kept constant
+
+							if(index == 0)
+							{
+							  posite = posite								
+							  plane.position.set(-30,6,-20.98)
+
+                             // posite = -35.0							  
+							}
+							else
+						    {
+                              posite = posite + 1.0*ratiowww
+							  plane.position.set(posite,3,-11.98); //y and z kept constant
+							}
+
+							if(index == 1)
+							{
+							  plane.rotation.y = Math.PI/2;
+							  plane.position.set(-36,3,3.98)
+                              posite = posite + 1.0*ratiowww 
+                           // posite = -35.0							  
+							}
+							else
+						    {
+                              posite = posite + 1.0*ratiowww
+							//  plane.position.set(posite,3,-11.98); //y and z kept constant
+							}							
+							
 						}
 						else
 						{
+						 if( index == 27)
+						 {
+							  plane.rotation.y = Math.PI/2;
+							  plane.position.set(-36,3,-7)
+							 
+						 }
+						 else
+						 {							 
 							//plane.rotation.z = Math.PI/2;
-                            plane.position.set(2.5 * index - 55 ,2 ,5.98);
+							posisi = posisi + 1.3*ratioww
+                            plane.position.set(posisi,3,11.98);
+
                             //plane.position.set(65*i - 75*Math.floor(gal.num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
 							plane.rotation.y = Math.PI;
+						 }
 						}https://aerotwist.com/tutorials/create-your-own-environment-maps/
 						gal.scene.add(plane);
                         gal.paintings.push(plane);
@@ -412,11 +455,11 @@ else {
 						gal.moveVelocity.y = 0;
 						gal.controls.getObject().position.y = 1.75;
 				}
-                if(gal.controls.getObject().position.z < -5) {
-                        gal.controls.getObject().position.z = -5;
+                if(gal.controls.getObject().position.z < -10) {
+                        gal.controls.getObject().position.z = -10;
                 }
-                if(gal.controls.getObject().position.z > 5) {
-                        gal.controls.getObject().position.z = 5;
+                if(gal.controls.getObject().position.z > 10) {
+                        gal.controls.getObject().position.z = 10;
                 }
                 if(gal.controls.getObject().position.x < -36) {
                         gal.controls.getObject().position.x = -36;
